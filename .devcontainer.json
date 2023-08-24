@@ -1,5 +1,5 @@
 {
-  "name": "Example Home Assistant add-on repository",
+  "name": "Home Assistant add-on repository:unpoller",
   "image": "ghcr.io/home-assistant/devcontainer:addons",
   "appPort": ["7123:8123", "7357:4357"],
   "postStartCommand": "bash devcontainer_bootstrap",
@@ -8,7 +8,17 @@
   "containerEnv": {
     "WORKSPACE_DIRECTORY": "${containerWorkspaceFolder}"
   },
-  "extensions": ["timonwong.shellcheck", "esbenp.prettier-vscode"],
+  "extensions": [
+	"timonwong.shellcheck",
+	"esbenp.prettier-vscode",
+	"MS-CEINTL.vscode-language-pack-en-GB",
+	"redhat.vscode-yaml",
+	"keesschollaart.vscode-home-assistant",
+	"donjayamanne.git-extension-pack",
+	"GitHub.copilot",
+	"fnando.linter",
+	"yzhang.markdown-all-in-one"
+],
   "mounts": ["type=volume,target=/var/lib/docker"],
   "settings": {
     "terminal.integrated.profiles.linux": {

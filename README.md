@@ -1,46 +1,89 @@
-# Example Home Assistant add-on repository
+<img width="320px" src="https://unpoller.com/img/unpoller.png">
 
-This repository can be used as a "blueprint" for add-on development to help you get started.
+[![discord](https://badgen.net/badge/icon/Discord?color=0011ff&label&icon=https://simpleicons.now.sh/discord/eee "Ubiquiti Discord")](https://discord.gg/KnyKYt2)
+[![grafana](https://badgen.net/https/golift.io/bd/grafana/dashboard-downloads/11310,10419,10414,10415,10416,10417,10418,11311,11312,11313,11314,11315?icon=https://simpleicons.now.sh/grafana/ED7F38&color=0011ff "Grafana Dashboard Downloads")](http://grafana.com/dashboards?search=unifi-poller)
+[![pulls](https://badgen.net/docker/pulls/golift/unifi-poller?icon=https://simpleicons.now.sh/docker/38B1ED&label=pulls&color=0011ff "Docker Pulls")](https://hub.docker.com/r/golift/unifi-poller)
+[![DLs](https://img.shields.io/github/downloads/unifi-poller/unifi-poller/total.svg?logo=github&color=0116ff "GitHub Downloads")](https://www.somsubhra.com/github-release-stats/?username=unpoller&repository=unpoller)
 
-Add-on documentation: <https://developers.home-assistant.io/docs/add-ons>
+[![unifi](https://badgen.net/badge/UniFi/5.12.x,5.13.x,UAP,USG,USW,UDM?list=|&icon=https://docs.golift.io/svg/ubiquiti_color.svg&color=0099ee "UniFi Products Supported")](https://github.com/golift/unifi)
+[![builer](https://badgen.net/badge/go/Application%20Builder?label=&icon=https://docs.golift.io/svg/go.svg&color=0099ee "Go Application Builder")](https://github.com/golift/application-builder)
+[![stars](https://badgen.net/github/stars/unifi-poller/unifi-poller?icon=https://simpleicons.now.sh/macys/fab&label=&color=0099ee "GitHub Stars")](https://github.com/unpoller/unpoller)
+[![travis](https://badgen.net/travis/unifi-poller/unifi-poller?icon=travis&label=build "Travis Build")](https://travis-ci.com/unpoller/unpoller)
 
-[![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fhome-assistant%2Faddons-example)
+Collect your UniFi controller data and report it to an InfluxDB instance,
+or export it for Prometheus collection.
+[Twelve Grafana Dashboards](http://grafana.com/dashboards?search=unifi-poller)
+included; with screenshots. Six for InfluxDB and six for Prometheus.
 
-## Add-ons
+## Installation
 
-This repository contains the following add-ons
+[See the Documentation!](https://unpoller.com)
+We're willing to help if you have troubles.
+Open an [Issue](https://github.com/unpoller/unpoller/issues) and
+we'll figure out how to get things working for you. You can also get help in
+the #unifi-poller channel on the [Ubiquiti Discord server](https://discord.gg/KnyKYt2). There'se also
+[a forum post](https://community.ui.com/questions/Unifi-Poller-Store-Unifi-Controller-Metrics-in-InfluxDB-without-SNMP/58a0ea34-d2b3-41cd-93bb-d95d3896d1a1)
+you may use to get additional help.
 
-### [Example add-on](./example)
+## Description
 
-![Supports aarch64 Architecture][aarch64-shield]
-![Supports amd64 Architecture][amd64-shield]
-![Supports armhf Architecture][armhf-shield]
-![Supports armv7 Architecture][armv7-shield]
-![Supports i386 Architecture][i386-shield]
+[Ubiquiti](https://www.ui.com) makes networking devices like switches, gateways
+(routers) and wireless access points. They have a line of equipment named
+[UniFi](https://www.ui.com/products/#unifi) that uses a
+[controller](https://www.ui.com/download/unifi/) to keep stats and simplify network
+device configuration. This controller can be installed on Windows, macOS, FreeBSD,
+Linux or Docker. Ubiquiti also provides a dedicated hardware device called a
+[CloudKey](https://www.ui.com/unifi/unifi-cloud-key/) that runs the controller software.
+More recently they've developed the Dream Machine, and UnPoller can collect its data!
 
-_Example add-on to use as a blueprint for new add-ons._
+UnPoller is a small Golang application that runs on Windows, macOS, FreeBSD,
+Linux or Docker. In Influx-mode it polls a UniFi controller every 30 seconds for
+measurements and exports the data to an Influx database. In Prometheus mode the
+poller opens a web port and accepts Prometheus polling. It converts the UniFi
+Controller API data into Prometheus exports on the fly.
 
-<!--
+This application requires your controller to be running all the time. If you run
+a UniFi controller, there's no excuse not to install
+Influx or
+[Prometheus](https://prometheus.io),
+Grafana and this app.
+You'll have a plethora of data at your fingertips and the ability to craft custom
+graphs to slice the data any way you choose. Good luck!
 
-Notes to developers after forking or using the github template feature:
-- While developing comment out the 'image' key from 'example/config.yaml' to make the supervisor build the addon
-  - Remember to put this back when pushing up your changes.
-- When you merge to the 'main' branch of your repository a new build will be triggered.
-  - Make sure you adjust the 'version' key in 'example/config.yaml' when you do that.
-  - Make sure you update 'example/CHANGELOG.md' when you do that.
-  - The first time this runs you might need to adjust the image configuration on github container registry to make it public
-  - You may also need to adjust the github Actions configuration (Settings > Actions > General > Workflow > Read & Write)
-- Adjust the 'image' key in 'example/config.yaml' so it points to your username instead of 'home-assistant'.
-  - This is where the build images will be published to.
-- Rename the example directory.
-  - The 'slug' key in 'example/config.yaml' should match the directory name.
-- Adjust all keys/url's that points to 'home-assistant' to now point to your user/fork.
-- Share your repository on the forums https://community.home-assistant.io/c/projects/9
-- Do awesome stuff!
- -->
+Supported as of Poller v2.0.2, are [Loki](https://grafana.com/oss/loki/)
+and the collection of UniFi events, alarms, anomalies and IDS data.
+This data can be exported to Loki or InfluxDB, or both!
 
-[aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
-[amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
-[armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
-[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
-[i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
+## Operation
+
+You can control this app with puppet, chef, saltstack, homebrew or a simple bash
+script if you needed to. Packages are available for macOS, Linux, FreeBSD and Docker.
+It works just fine on Windows too.
+
+## What's it look like?
+
+There are 12 total dashboards available; the 6 InfluxDB dashboards are very similar
+to the 6 Prometheus dashboards. On the [documentaton website](https://unpoller.com)
+you'll find screenshots of some of the dashboards.
+
+## Integrations
+
+The following fine folks are providing their services, completely free! These service
+integrations are used for things like storage, building, compiling, distribution and
+documentation support. This project succeeds because of them. Thank you!
+
+<p style="text-align: center;">
+<a title="PackageCloud" alt="PackageCloud" href="https://packagecloud.io"><img src="https://docs.golift.io/integrations/packagecloud.png"/></a>
+<a title="GitHub" alt="GitHub" href="https://GitHub.com"><img src="https://docs.golift.io/integrations/octocat.png"/></a>
+<a title="Docker Cloud" alt="Docker" href="https://cloud.docker.com"><img src="https://docs.golift.io/integrations/docker.png"/></a>
+<a title="Travis-CI" alt="Travis-CI" href="https://Travis-CI.com"><img src="https://docs.golift.io/integrations/travis-ci.png"/></a>
+<a title="Homebrew" alt="Homebrew" href="https://brew.sh"><img src="https://docs.golift.io/integrations/homebrew.png"/></a>
+<a title="Go Lift" alt="Go Lift" href="https://golift.io"><img src="https://docs.golift.io/integrations/golift.png"/></a>
+<a title="Grafana" alt="Grafana" href="https://grafana.com"><img src="https://docs.golift.io/integrations/grafana.png"/></a>
+</p>
+
+## Copyright & License
+<img style="float: right;" align="right" width="200px" src="https://unpoller.com/img/unpoller.png">
+
+-   Copyright © 2018-2020 David Newhall II.
+-   See [LICENSE](LICENSE) for license information.
